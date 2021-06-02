@@ -5,7 +5,6 @@ from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from .managers import UserManager
 
-
 # Create your models here.
 
 class User(AbstractBaseUser, PermissionsMixin):
