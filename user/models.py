@@ -27,5 +27,5 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_superuser(self):
         return self.admin
 
-    class Meta:
-        db_table = "login"
+    # class Meta:
+    #     db_table = "login"
