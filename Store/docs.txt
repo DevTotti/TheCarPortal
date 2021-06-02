@@ -1,0 +1,15 @@
+Merch
+
+Auto
+images should be zoomable
+*space for video
+
+
+Affiliate
+
+Mech - what they do, address, speciality
+Spare parts - kind of spareparts, address
+Auto Diagnosis - address
+Car Sales - address, type
+
+
