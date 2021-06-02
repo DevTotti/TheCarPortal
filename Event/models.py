@@ -26,7 +26,8 @@ class Event(models.Model):
 
 class EventImg(models.Model):
     event = models.ForeignKey(Event, default=None, on_delete=models.CASCADE)
-    image = models.FileField(upload_to='media/')
+    image = models.FileField(upload_to='static/media/')
+    video = models.FileField(upload_to='static/media/')
 
 
     def __str__(self):

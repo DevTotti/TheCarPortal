@@ -15,8 +15,8 @@ class Mechanic(models.Model):
 
 
 class MechanicImage(models.Model):
-    video = models.FileField(upload_to='media/')
-    image = models.ImageField(upload_to='media/')
+    video = models.FileField(upload_to='static/media/')
+    image = models.ImageField(upload_to='static/media/')
     width = models.FloatField(default=100)
     length = models.FloatField(default=100)
     mechanic = models.ForeignKey(Mechanic, default=None, on_delete=models.CASCADE)
@@ -39,8 +39,8 @@ class Spare(models.Model):
 
 
 class SpareImage(models.Model):
-    video = models.FileField(upload_to='media/')
-    image = models.ImageField(upload_to='media/')
+    video = models.FileField(upload_to='static/media/')
+    image = models.ImageField(upload_to='static/media/')
     width = models.FloatField(default=100)
     length = models.FloatField(default=100)
     spare = models.ForeignKey(Spare, default=None, on_delete=models.CASCADE)
@@ -64,8 +64,8 @@ class AutoDiagnostic(models.Model):
 
 
 class AutoDiagnosticImage(models.Model):
-    video = models.FileField(upload_to='media/')
-    image = models.ImageField(upload_to='media/')
+    video = models.FileField(upload_to='static/media/')
+    image = models.ImageField(upload_to='static/media/')
     width = models.FloatField(default=100)
     length = models.FloatField(default=100)
     mechanic = models.ForeignKey(AutoDiagnostic, default=None, on_delete=models.CASCADE)
@@ -94,8 +94,8 @@ class CarSale(models.Model):
 
 
 class CarSaleImage(models.Model):
-    video = models.FileField(upload_to='media/')
-    image = models.ImageField(upload_to='media/')
+    video = models.FileField(upload_to='static/media/')
+    image = models.ImageField(upload_to='static/media/')
     width = models.FloatField(default=100)
     length = models.FloatField(default=100)
     carSale = models.ForeignKey(CarSale, default=None, on_delete=models.CASCADE)
