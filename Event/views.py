@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import EventSerializer
-from .models import Event
+from .models import Event, EventImg
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -38,6 +38,9 @@ class EventRetrieveView(RetrieveAPIView):
         event_objects = Event.objects.all()
         message = []
         for event in event_objects:
+            images = EventImg.objects.filter(event=event)
+            url = str(request.build_absolute_uri()).rstrip("events/")
+            # print(url)
             data = {
                 "Title": event.title,
                 "Description": event.description,
@@ -45,7 +48,7 @@ class EventRetrieveView(RetrieveAPIView):
                 "Status": event.status,
                 "Date": event.date,
                 "Time": event.time,
-                "Image": str(event.eventImg),
+                "Image": [url+'/static/'+str(img.image) for img in images],
                 "Venue": event.venue
             }
 
