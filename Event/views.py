@@ -48,7 +48,7 @@ class EventRetrieveView(RetrieveAPIView):
                 "Status": event.status,
                 "Date": event.date,
                 "Time": event.time,
-                "Image": [url+str(img.image) for img in images],
+                "Image": [url+'/'+str(img.image) for img in images],
                 "Venue": event.venue
             }
 
