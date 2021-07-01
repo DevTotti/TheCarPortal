@@ -30,11 +30,11 @@ class EventCreateView(CreateAPIView):
         return Response(response, status=status_)
 
 
-class EventRetrieveView(RetrieveAPIView):
+class EventsRetrieveView(RetrieveAPIView):
     queryset = Event.objects.all()
     permission_classes = (AllowAny, )
 
-    def get(self, request):
+    def get(self, request, **args):
         event_objects = Event.objects.all()
         message = []
         for event in event_objects:
@@ -42,6 +42,7 @@ class EventRetrieveView(RetrieveAPIView):
             url = str(request.build_absolute_uri()).rstrip("events/")
             # print(url)
             data = {
+                "id": event.id,
                 "Title": event.title,
                 "Description": event.description,
                 "Details": event.full_details,
@@ -63,3 +64,32 @@ class EventRetrieveView(RetrieveAPIView):
         status_ = status.HTTP_200_OK
         return Response(response, status_)
 
+
+class EventRetrieveView(RetrieveAPIView):
+    queryset = Event.objects.all()
+    permission_classes = (AllowAny, )
+
+    def get(self, request, **args):
+        event_objects =  Event.objects.get(id=args['event_id'])
+        images = EventImg.objects.filter(event=event_objects)
+        url = str(request.build_absolute_uri()).rstrip("events/")
+        data = {
+            "id": event_objects.id,
+            "Title": event_objects.title,
+            "Description": event_objects.description,
+            "Details": event_objects.full_details,
+            "Status": event_objects.status,
+            "Date": event_objects.date,
+            "Time": event_objects.time,
+            "Image": [url+'/'+str(img.image) for img in images],
+            "Venue": event_objects.venue
+        }
+    
+        response = {
+            'success': True,
+            'status_code': status.HTTP_200_OK,
+            'message': data
+        }
+
+        status_ = status.HTTP_200_OK
+        return Response(response, status_)

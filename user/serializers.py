@@ -77,6 +77,6 @@ class UserLoginSerializer(serializers.Serializer):
             )
 
         return {
-            'email':user.email,
+            'email':user.name,
             'token': jwt_token
         }
