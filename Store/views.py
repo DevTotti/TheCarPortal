@@ -20,14 +20,14 @@ class MerchandiseView(RetrieveAPIView):
             for merch in merch_objects:
                 images = MerchImage.objects.filter(product=merch)
                 url = str(request.build_absolute_uri()).rstrip("store/")
-
+                print("NEW_MERCH_URL: ",url)
                 data = {
                     "id": merch.id,
                     "name": merch.name,
                     "description": merch.description,
                     "color_variation": merch.color_variation,
-                    "new_price": merch.new_price,
-                    "old_price": merch.old_price,
+                    "new_price": "₦{:,.2f}".format(merch.new_price),
+                    "old_price": "₦{:,.2f}".format(merch.old_price),
                     "stock": merch.stock,
                     "merch_type": merch.merch_type,
                     "merch_size": merch.merch_size,
@@ -51,13 +51,14 @@ class MerchandiseView(RetrieveAPIView):
             merch_objects =  Merchandise.objects.get(id=merch_id)
             images = MerchImage.objects.filter(product=merch_objects)
             url = str(request.build_absolute_uri()).rstrip("store/")
+            print("NEW_MERCH_2_URL: ",url)
             data = {
                 "id": merch_objects.id,
                 "name": merch_objects.name,
                 "description": merch_objects.description,
                 "color_variation": merch_objects.color_variation,
-                "new_price": merch_objects.new_price,
-                "old_price": merch_objects.old_price,
+                "new_price": "₦{:,.2f}".format(merch_objects.new_price),
+                "old_price": "₦{:,.2f}".format(merch_objects.new_price),
                 "stock": merch_objects.stock,
                 "merch_type": merch_objects.merch_type,
                 "merch_size": merch_objects.merch_size,
@@ -89,7 +90,7 @@ class AutoView(RetrieveAPIView):
             for auto in auto_objects:
                 images = AutoImage.objects.filter(product=auto)
                 url = str(request.build_absolute_uri()).rstrip("store/")
-
+                print("NEW_MERCH_URL_3: ", url)
                 data = {
                     "id": auto.id,
                     "name": auto.name,
@@ -123,6 +124,7 @@ class AutoView(RetrieveAPIView):
             auto_objects =  Auto.objects.get(id=auto_id)
             images = AutoImage.objects.filter(product=auto_objects)
             url = str(request.build_absolute_uri()).rstrip("store/")
+            print("NEW_MERCH_URL_4: ",url)
             data = {
                 "id": auto_objects.id,
                 "name": auto_objects.name,

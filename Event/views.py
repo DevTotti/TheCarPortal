@@ -73,6 +73,7 @@ class EventRetrieveView(RetrieveAPIView):
         event_objects =  Event.objects.get(id=args['event_id'])
         images = EventImg.objects.filter(event=event_objects)
         url = str(request.build_absolute_uri()).rstrip("events/")
+        print("NEW_EVENT_URL: ",url)
         data = {
             "id": event_objects.id,
             "Title": event_objects.title,
