@@ -28,3 +28,24 @@ class EnquiryView(CreateAPIView):
         status_ = status.HTTP_200_OK
         
         return Response(response, status=status_)
+
+    def get(self, request):
+        enq_objects = Enquiry.objects.all()
+        message = []
+        for enq in enq_objects:
+            data = {
+                "name": enq.name,
+                "email": enq.email,
+                "phone": enq.name
+            }
+
+            message.append(data)
+        
+        response = {
+            'success': True,
+            'status_code': status.HTTP_200_OK,
+            'message': message
+        }
+
+        status_ = status.HTTP_200_OK
+        return Response(response, status_)
