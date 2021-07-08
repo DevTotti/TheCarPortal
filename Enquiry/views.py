@@ -29,6 +29,13 @@ class EnquiryView(CreateAPIView):
         
         return Response(response, status=status_)
 
+
+
+class EnquiryGetView(RetrieveAPIView):
+    queryset = Enquiry.objects.all()
+    permission_classes = (IsAuthenticated, )
+    serializer_class = EnquirySerializer
+
     def get(self, request):
         enq_objects = Enquiry.objects.all()
         message = []
