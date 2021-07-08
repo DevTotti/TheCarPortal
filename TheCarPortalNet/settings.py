@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'Cart',
     'Order',
+    'Enquiry',
     
 ]
 
