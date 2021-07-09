@@ -21,6 +21,8 @@ class MerchandiseView(RetrieveAPIView):
                 images = MerchImage.objects.filter(product=merch)
                 url = str(request.build_absolute_uri()).rstrip("store/")
                 print("NEW_MERCH_URL: ",url)
+                discount = compute_discount(merch.new_price, merch.old_price)
+                print("Discount Added: ", discount)
                 data = {
                     "id": merch.id,
                     "name": merch.name,
@@ -28,6 +30,7 @@ class MerchandiseView(RetrieveAPIView):
                     "color_variation": merch.color_variation,
                     "new_price": "₦{:,.2f}".format(merch.new_price),
                     "old_price": "₦{:,.2f}".format(merch.old_price),
+                    "discount": discount,
                     "stock": merch.stock,
                     "merch_type": merch.merch_type,
                     "merch_size": merch.merch_size,
@@ -52,6 +55,8 @@ class MerchandiseView(RetrieveAPIView):
             images = MerchImage.objects.filter(product=merch_objects)
             url = str(request.build_absolute_uri()).rstrip("store/")
             print("NEW_MERCH_2_URL: ",url)
+            discount = compute_discount(merch_objects.new_price, merch_objects.old_price)
+            print("Discount Added: ", discount)
             data = {
                 "id": merch_objects.id,
                 "name": merch_objects.name,
@@ -59,6 +64,7 @@ class MerchandiseView(RetrieveAPIView):
                 "color_variation": merch_objects.color_variation,
                 "new_price": "₦{:,.2f}".format(merch_objects.new_price),
                 "old_price": "₦{:,.2f}".format(merch_objects.new_price),
+                "discount": discount,
                 "stock": merch_objects.stock,
                 "merch_type": merch_objects.merch_type,
                 "merch_size": merch_objects.merch_size,
@@ -152,3 +158,11 @@ class AutoView(RetrieveAPIView):
             status_ = status.HTTP_200_OK
 
         return Response(response, status_)
+
+
+def compute_discount(new_price, old_price):
+    difference = old_price - new_price
+    off = float(difference)/float(old_price)
+    discount = int(off * 100)
+
+    return '-'+str(discount)+'%'
