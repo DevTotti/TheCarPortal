@@ -39,8 +39,7 @@ class EventsRetrieveView(RetrieveAPIView):
         message = []
         for event in event_objects:
             images = EventImg.objects.filter(event=event)
-            url = str(request.build_absolute_uri()).rstrip("events/")
-            # print(url)
+            url = "http://thecarportal.herokuapp.com/"
             data = {
                 "id": event.id,
                 "Title": event.title,
@@ -49,7 +48,7 @@ class EventsRetrieveView(RetrieveAPIView):
                 "Status": event.status,
                 "Date": event.date,
                 "Time": event.time,
-                "Image": [url+'/'+str(img.image) for img in images],
+                "Image": [url+str(img.image) for img in images],
                 "Venue": event.venue
             }
 
@@ -72,8 +71,7 @@ class EventRetrieveView(RetrieveAPIView):
     def get(self, request, **args):
         event_objects =  Event.objects.get(id=args['event_id'])
         images = EventImg.objects.filter(event=event_objects)
-        url = str(request.build_absolute_uri()).rstrip("events/")
-        print("NEW_EVENT_URL: ",url)
+        url = "http://thecarportal.herokuapp.com/"
         data = {
             "id": event_objects.id,
             "Title": event_objects.title,
@@ -82,7 +80,7 @@ class EventRetrieveView(RetrieveAPIView):
             "Status": event_objects.status,
             "Date": event_objects.date,
             "Time": event_objects.time,
-            "Image": [url+'/'+str(img.image) for img in images],
+            "Image": [url+str(img.image) for img in images],
             "Venue": event_objects.venue
         }
     

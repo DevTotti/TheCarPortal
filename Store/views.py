@@ -19,8 +19,7 @@ class MerchandiseView(RetrieveAPIView):
             merchs = []
             for merch in merch_objects:
                 images = MerchImage.objects.filter(product=merch)
-                url = str(request.build_absolute_uri()).rstrip("store/")
-                print("NEW_MERCH_URL: ",url)
+                url = "http://thecarportal.herokuapp.com/"
                 discount = compute_discount(merch.new_price, merch.old_price)
                 print("Discount Added: ", discount)
                 data = {
@@ -36,7 +35,7 @@ class MerchandiseView(RetrieveAPIView):
                     "merch_size": merch.merch_size,
                     "location": merch.location,
                     "in_box": merch.in_box,
-                    "images":[url+'/'+str(img.image) for img in images]
+                    "images":[url+str(img.image) for img in images]
                 }
 
                 merchs.append(data)
@@ -53,8 +52,7 @@ class MerchandiseView(RetrieveAPIView):
             merch_id = args['merch_id']
             merch_objects =  Merchandise.objects.get(id=merch_id)
             images = MerchImage.objects.filter(product=merch_objects)
-            url = str(request.build_absolute_uri()).rstrip("store/")
-            print("NEW_MERCH_2_URL: ",url)
+            url = "http://thecarportal.herokuapp.com/"
             discount = compute_discount(merch_objects.new_price, merch_objects.old_price)
             print("Discount Added: ", discount)
             data = {
@@ -70,7 +68,7 @@ class MerchandiseView(RetrieveAPIView):
                 "merch_size": merch_objects.merch_size,
                 "location": merch_objects.location,
                 "in_box": merch_objects.in_box,
-                "images":[url+'/'+str(img.image) for img in images]
+                "images":[url+str(img.image) for img in images]
             }
         
             response = {
@@ -95,8 +93,7 @@ class AutoView(RetrieveAPIView):
             autos = []
             for auto in auto_objects:
                 images = AutoImage.objects.filter(product=auto)
-                url = str(request.build_absolute_uri()).rstrip("store/")
-                print("NEW_MERCH_URL_3: ", url)
+                url = "http://thecarportal.herokuapp.com/"
                 data = {
                     "id": auto.id,
                     "name": auto.name,
@@ -112,7 +109,7 @@ class AutoView(RetrieveAPIView):
                     "transmission": auto.transmission,
                     "usage": auto.usage_type,
                     "location": auto.location,
-                    "images":[url+'/'+str(img.image) for img in images]
+                    "images":[url+str(img.image) for img in images]
                 }
 
                 autos.append(data)
@@ -129,8 +126,7 @@ class AutoView(RetrieveAPIView):
             auto_id = args['auto_id']
             auto_objects =  Auto.objects.get(id=auto_id)
             images = AutoImage.objects.filter(product=auto_objects)
-            url = str(request.build_absolute_uri()).rstrip("store/")
-            print("NEW_MERCH_URL_4: ",url)
+            url = "http://thecarportal.herokuapp.com/"
             data = {
                 "id": auto_objects.id,
                 "name": auto_objects.name,
@@ -146,7 +142,7 @@ class AutoView(RetrieveAPIView):
                 "transmission": auto_objects.transmission,
                 "usage": auto_objects.usage_type,
                 "location": auto_objects.location,
-                "images":[url+'/'+str(img.image) for img in images]
+                "images":[url+str(img.image) for img in images]
             }
         
             response = {
