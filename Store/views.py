@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
-
+url = "https://res.cloudinary.com/the-car-portal/image/upload/"
 
 
 class MerchandiseView(RetrieveAPIView):
@@ -34,7 +34,7 @@ class MerchandiseView(RetrieveAPIView):
                     "merch_size": merch.merch_size,
                     "location": merch.location,
                     "in_box": merch.in_box,
-                    "images":[str(img.image) for img in images]
+                    "images":[url+str(img.image) for img in images]
                 }
 
                 merchs.append(data)
@@ -66,7 +66,7 @@ class MerchandiseView(RetrieveAPIView):
                 "merch_size": merch_objects.merch_size,
                 "location": merch_objects.location,
                 "in_box": merch_objects.in_box,
-                "images":[str(img.image) for img in images]
+                "images":[url+str(img.image) for img in images]
             }
         
             response = {
@@ -106,7 +106,7 @@ class AutoView(RetrieveAPIView):
                     "transmission": auto.transmission,
                     "usage": auto.usage_type,
                     "location": auto.location,
-                    "images":[str(img.image) for img in images]
+                    "images":[url+str(img.image) for img in images]
                 }
 
                 autos.append(data)
@@ -138,7 +138,7 @@ class AutoView(RetrieveAPIView):
                 "transmission": auto_objects.transmission,
                 "usage": auto_objects.usage_type,
                 "location": auto_objects.location,
-                "images":[str(img.image) for img in images]
+                "images":[url+str(img.image) for img in images]
             }
         
             response = {

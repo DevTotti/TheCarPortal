@@ -5,9 +5,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
-
-
 # Create your views here.
+url = "https://res.cloudinary.com/the-car-portal/image/upload/"
 
 class EventCreateView(CreateAPIView):
     queryset = Event.objects.all()
@@ -47,7 +46,7 @@ class EventsRetrieveView(RetrieveAPIView):
                 "Status": event.status,
                 "Date": event.date,
                 "Time": event.time,
-                "Image": [str(img.image) for img in images],
+                "Image": [url+str(img.image) for img in images],
                 "Venue": event.venue
             }
 
@@ -78,7 +77,7 @@ class EventRetrieveView(RetrieveAPIView):
             "Status": event_objects.status,
             "Date": event_objects.date,
             "Time": event_objects.time,
-            "Image": [str(img.image) for img in images],
+            "Image": [url+str(img.image) for img in images],
             "Venue": event_objects.venue
         }
     
