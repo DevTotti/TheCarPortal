@@ -1,1 +1,1 @@
-web: gunicorn TheCarPortalNet.wsgi
+web: gunicorn TheCarPortalNet.wsgi --timeout 300
