@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -53,7 +54,7 @@ class Merchandise(models.Model):
 
 
 class MerchImage(models.Model):
-    image = models.ImageField(upload_to='static/media/')
+    image = CloudinaryField('image')
     width = models.FloatField(default=100)
     length = models.FloatField(default=100)
     product = models.ForeignKey(Merchandise, default=None, related_name='images', on_delete=models.CASCADE)
@@ -99,8 +100,8 @@ class Auto(models.Model):
 
 
 class AutoImage(models.Model):
-    video = models.FileField(upload_to='static/media/', blank=True)
-    image = models.ImageField(upload_to='static/media/')
+    video = CloudinaryField('video', blank=True)
+    image = CloudinaryField('image')
     width = models.FloatField(default=100)
     length = models.FloatField(default=100)
     product = models.ForeignKey(Auto, default=None, related_name='images', on_delete=models.CASCADE)

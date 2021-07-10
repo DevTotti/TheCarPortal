@@ -14,6 +14,11 @@ import os
 from datetime import timedelta
 from pathlib import Path
 import django_heroku
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +54,7 @@ INSTALLED_APPS = [
     'Cart',
     'Order',
     'Enquiry',
+    'cloudinary',
     
 ]
 
@@ -222,3 +228,10 @@ django_heroku.settings(locals())
 #53994191054023
 #03/25
 #689
+
+#adding cloudinary config
+cloudinary.config( 
+  cloud_name = os.environ['CLOUD_NAME'], 
+  api_key = os.environ["API_KEY"], 
+  api_secret = os.environ["API_SECRET"] 
+)
