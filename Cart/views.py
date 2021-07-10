@@ -101,7 +101,9 @@ class CartView(CreateAPIView):
         return Response(response, status_)
 
 
-
+    def patch(self, request, *args, **kwargs):
+        print("passing")
+        pass
 
 
 
