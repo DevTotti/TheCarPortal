@@ -29,6 +29,7 @@ class Cart(models.Model):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     used = models.BooleanField(default=False)
     total = models.IntegerField(default=0)
+    paid = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -53,6 +54,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
     merch = models.ForeignKey(Merchandise, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='merchs')
 
     class Meta:

@@ -19,27 +19,34 @@ class CartView(CreateAPIView):
     serializer_class = CartSerializer
 
     def post(self, request, *args, **kwargs):
-        merch_id = request.data.get('id')
-        quantity = int(request.data.get('quantity', 1))
-        print("request.session: ", request.session)
+        cart_items = request.data.get('cart_items')
+        total_cart_price = 0
+        for cart_object in cart_items:
+            cart_object_id = cart_object['id']
+            cart_object_quantity = cart_object['quantity']
+            cart_object_total = cart_object['total_price']
+            total_cart_price += int(cart_object_total)
 
-        merch_obj = get_object_or_404(Merchandise, id=merch_id)
-        cart_obj, _ = Cart.objects.get_existing_or_new(request)
+
+            merch_obj = get_object_or_404(Merchandise, id=cart_object_id)
+            cart_obj, _ = Cart.objects.get_existing_or_new(request)
 
         
 
-        if quantity <= 0:
-            cart_item_qs = CartItem.objects.filter(cart=cart_obj, merch=merch_obj)
-            if cart_item_qs.count != 0:
-                cart_item_qs.first().delete()
+            if cart_object_quantity <= 0:
+                cart_item_qs = CartItem.objects.filter(cart=cart_obj, merch=merch_obj)
+                if cart_item_qs.count != 0:
+                    cart_item_qs.first().delete()
 
-        else:
-            cart_item_obj, created = CartItem.objects.get_or_create(merch=merch_obj, cart=cart_obj)
-            cart_item_obj.quantity = quantity
-            cart_item_obj.save()
+            else:
+                cart_item_obj, created = CartItem.objects.get_or_create(merch=merch_obj, cart=cart_obj)
+                cart_item_obj.quantity = cart_object_quantity
+                cart_item_obj.price = cart_object_total
+                cart_item_obj.save()
 
         
         request.data['user'] = request.user
+        request.data['total'] = total_cart_price
         
         serializer_class = CartSerializer(cart_obj, data=request.data)
         serializer_class.is_valid(raise_exception=True)
@@ -92,6 +99,9 @@ class CartView(CreateAPIView):
             status_ = status.HTTP_404_NOT_FOUND
         
         return Response(response, status_)
+
+
+
 
 
 
