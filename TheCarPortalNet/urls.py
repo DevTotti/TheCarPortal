@@ -24,3 +24,7 @@ urlpatterns = [
     path('cart/', include('Cart.urls')),
     path('sale/', include('Enquiry.urls')),
 ]
+
+admin.site.site_header = 'The Car Portal Admin Dashboard'
+admin.site.index_title = 'Car Portal Administration'
+admin.site.site_title = 'Admin Dashboard'
