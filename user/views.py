@@ -40,7 +40,7 @@ class UserLoginView(RetrieveAPIView):
             'status code' : status.HTTP_200_OK,
             'message': 'User logged in  successfully!',
             'token' : serializer.data['token'],
-            'username': serializer.data['email']
+            'user_data': serializer.data['email'],
             }
 
         status_ = status.HTTP_200_OK
