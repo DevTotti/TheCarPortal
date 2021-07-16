@@ -7,6 +7,7 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import UserRegistrationSerializer, UserLoginSerializer
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from .models import User
 
 
 class UserRegistrationView(CreateAPIView):
@@ -35,12 +36,16 @@ class UserLoginView(RetrieveAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
+        user_data = User.objects.get(email=serializer.data['email'])
+
         response = {
             'success' : True,
             'status code' : status.HTTP_200_OK,
             'message': 'User logged in  successfully!',
             'token' : serializer.data['token'],
-            'user_data': serializer.data['email'],
+            'email': serializer.data['email'],
+            'phone': user_data.phone,
+            'username': user_data.name
             }
 
         status_ = status.HTTP_200_OK
