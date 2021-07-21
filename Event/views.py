@@ -49,7 +49,7 @@ class EventsRetrieveView(RetrieveAPIView):
                 "Date": event.date,
                 "Time": event.time,
                 "Image": [img_url+str(img.image) for img in images],
-                "Video": [vid_url+str(vid.video) for vid in vids],
+                "Video": [str(vid.video) for vid in vids],
                 "Venue": event.venue
             }
 
@@ -82,7 +82,7 @@ class EventRetrieveView(RetrieveAPIView):
             "Date": event_objects.date,
             "Time": event_objects.time,
             "Image": [img_url+str(img.image) for img in images],
-            "Video": [vid_url+str(vid.video) for vid in vids],
+            "Video": [str(vid) for vid in vids],
             "Venue": event_objects.venue
         }
     

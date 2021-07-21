@@ -35,7 +35,7 @@ class EventImg(models.Model):
 
 class EventVid(models.Model):
     event = models.ForeignKey(Event, default=None, on_delete=models.CASCADE)
-    video = CloudinaryField(resource_type = "video", null=True)
+    video = models.URLField()
 
 
     def __str__(self):
