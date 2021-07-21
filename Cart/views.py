@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
+from Store.models import Merchandise
 
 
 # Create your views here.
@@ -29,7 +30,6 @@ class CartView(CreateAPIView):
 
             merch_obj = get_object_or_404(Merchandise, id=cart_object_id)
             cart_obj, _ = Cart.objects.get_existing_or_new(request)
-
         
 
             if cart_object_quantity <= 0:
@@ -42,6 +42,11 @@ class CartView(CreateAPIView):
                 cart_item_obj.quantity = cart_object_quantity
                 cart_item_obj.price = cart_item_total
                 cart_item_obj.save()
+                merch_obj_stock = merch_obj.stock - int(cart_object_quantity)
+                merch_update = Merchandise.objects.get(id=cart_object_id)
+                merch_update.stock = merch_obj_stock
+                merch_update.save()
+
 
         
         request.data['user'] = request.user
