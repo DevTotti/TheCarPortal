@@ -19,12 +19,12 @@ class CartView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         cart_items = request.data.get('cart_items')
-        total_cart_price = 0
+        total_cart_price = request.data.get('cart_price')
+        delivery_address = request.data.get('delivery_address')
         for cart_object in cart_items:
             cart_object_id = cart_object['id']
             cart_object_quantity = cart_object['quantity']
-            cart_object_total = cart_object['total_price']
-            total_cart_price += int(cart_object_total)
+            cart_item_total = cart_object['price']
 
 
             merch_obj = get_object_or_404(Merchandise, id=cart_object_id)
@@ -40,12 +40,14 @@ class CartView(CreateAPIView):
             else:
                 cart_item_obj, created = CartItem.objects.get_or_create(merch=merch_obj, cart=cart_obj)
                 cart_item_obj.quantity = cart_object_quantity
-                cart_item_obj.price = cart_object_total
+                cart_item_obj.price = cart_item_total
                 cart_item_obj.save()
 
         
         request.data['user'] = request.user
         request.data['total'] = total_cart_price
+        request.data['paid'] = True
+        request.data['delivery'] = delivery_address
         
         serializer_class = CartSerializer(cart_obj, data=request.data)
         serializer_class.is_valid(raise_exception=True)

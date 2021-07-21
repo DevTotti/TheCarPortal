@@ -23,7 +23,7 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         total = Field(source='total')
         total_cart = Field(source='total_cart')
-        fields = ['id', 'user', 'merchs', 'total']
+        fields = '__all__'
 
 
         

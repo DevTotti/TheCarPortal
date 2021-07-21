@@ -27,6 +27,7 @@ class CartManager(models.Manager):
 
 class Cart(models.Model):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+    delivery = models.CharField(max_length=3000)
     used = models.BooleanField(default=False)
     total = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
@@ -56,6 +57,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
     price = models.IntegerField(default=0)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='merchs')
+    delivered = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (
