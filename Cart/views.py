@@ -23,7 +23,7 @@ class CartView(CreateAPIView):
         cart_items = request.data.get('cart_items')
         total_cart_price = request.data.get('cart_price')
         user = request.user.email
-        user_details = User.object.get(email=user)
+        user_details = User.objects.get(email=user)
         for cart_object in cart_items:
             cart_object_id = cart_object['id']
             cart_object_quantity = cart_object['quantity']
