@@ -11,6 +11,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=25, unique=True)
     name = models.CharField(_('first name'), max_length=150, null=True)
     phone = models.CharField(max_length=20, default='', null=True)
+    delivery = models.CharField(max_length=1000, blank=False, null=False)
     admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     # REQUIRED_FIELDS = ["first_name", "last_name", "gender", "birthday", "is_host"]
