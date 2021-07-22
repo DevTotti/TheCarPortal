@@ -12,6 +12,7 @@ from Store.models import Merchandise
 from Store.models import Merchandise
 from .models import Cart, CartItem
 from .serializers import CartSerializer
+from user.models import User
 
 
 class CartView(CreateAPIView):
@@ -21,7 +22,8 @@ class CartView(CreateAPIView):
     def post(self, request, *args, **kwargs):
         cart_items = request.data.get('cart_items')
         total_cart_price = request.data.get('cart_price')
-        delivery_address = request.data.get('delivery_address')
+        user = request.user
+        user_details = User.object.get(id=user)
         for cart_object in cart_items:
             cart_object_id = cart_object['id']
             cart_object_quantity = cart_object['quantity']
@@ -52,7 +54,7 @@ class CartView(CreateAPIView):
         request.data['user'] = request.user
         request.data['total'] = total_cart_price
         request.data['paid'] = True
-        request.data['delivery'] = delivery_address
+        request.data['delivery'] = user_details.delivery
         
         serializer_class = CartSerializer(cart_obj, data=request.data)
         serializer_class.is_valid(raise_exception=True)
