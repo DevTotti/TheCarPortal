@@ -64,3 +64,7 @@ class CartItem(models.Model):
             ('merch', 'cart')
         )
 
+
+    def __str__(self):
+        self.cart
+
