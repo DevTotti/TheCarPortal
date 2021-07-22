@@ -16,7 +16,7 @@ from user.models import User
 
 
 class CartView(CreateAPIView):
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (AllowAny, )
     serializer_class = CartSerializer
 
     def post(self, request, *args, **kwargs):
