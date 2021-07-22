@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
 from Store.models import Merchandise
-
+from Middleware.mail_sender import send_mail
 
 # Create your views here.
 from Store.models import Merchandise
@@ -57,9 +57,11 @@ class CartView(CreateAPIView):
         request.data['delivery'] = user_details.delivery
         
         serializer_class = CartSerializer(cart_obj, data=request.data)
+        
         serializer_class.is_valid(raise_exception=True)
         serializer_class.save()
-        send_mail(request.user)
+
+        send_mail(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
         response = {
             'success': True,
             'status_code': status.HTTP_200_OK,
@@ -110,4 +112,3 @@ class CartView(CreateAPIView):
         return Response(response, status_)
 
 
-def send_mail(request_user): return 

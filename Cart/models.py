@@ -37,7 +37,7 @@ class Cart(models.Model):
     objects = CartManager()
 
     def __str__(self):
-        return str(self.id)
+        return ('TCP-00'+str(self.id)+'-ORD')
     
     # @property
     # def total(self):
