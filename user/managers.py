@@ -15,6 +15,7 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email),
             name=some_data.get('name'),
             phone=some_data.get('phone'),
+            delivery=some_data.get('delivery'),
         )
 
         user.set_password(password)
