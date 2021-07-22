@@ -57,6 +57,7 @@ class CartView(CreateAPIView):
         serializer_class = CartSerializer(cart_obj, data=request.data)
         serializer_class.is_valid(raise_exception=True)
         serializer_class.save()
+        send_mail(request.user)
         response = {
             'success': True,
             'status_code': status.HTTP_200_OK,
@@ -107,9 +108,4 @@ class CartView(CreateAPIView):
         return Response(response, status_)
 
 
-    def patch(self, request, *args, **kwargs):
-        print("passing")
-        pass
-
-
-
+def send_mail(request_user): return 
