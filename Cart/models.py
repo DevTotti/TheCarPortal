@@ -66,5 +66,5 @@ class CartItem(models.Model):
 
 
     def __str__(self):
-        self.cart
+        return ('item ' + str(self.id) + ' in cart -> '+str(self.cart))
 
