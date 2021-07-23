@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
 from Store.models import Merchandise
-from Middleware.mail_sender import send_mail_smtp, send_mail_api
+from Middleware.mail_sender import send_mail_google_smtp, send_mail_gun_smtp
 
 # Create your views here.
 from Store.models import Merchandise
@@ -62,9 +62,9 @@ class CartView(CreateAPIView):
         serializer_class.save()
 
         try:
-            send_mail_smtp(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
+            send_mail_google_smtp(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
         except:
-            send_mail_api(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
+            send_mail_gun_smtp(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
         response = {
             'success': True,
             'status_code': status.HTTP_200_OK,
