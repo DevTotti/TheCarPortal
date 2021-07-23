@@ -1,4 +1,4 @@
-import smtplib
+import smtplib, ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
@@ -55,8 +55,10 @@ def send_mail(cart_id, delivery, name, mail, phone):
     #The body and the attachments for the mail
     message.attach(MIMEText(mail_content, 'plain'))
     #Create SMTP session for sending the mail
-    session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
-    session.starttls() #enable security
+    # session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+    ssl_context = ssl.create_default_context()
+    session = smtplib.SMTP_SSL('smtp.gmail.com', 465, context=ssl_context) #use gmail with port
+    # session.starttls() #enable security
     session.login(sender_address, sender_pass) #login with mail_id and password
     text = message.as_string()
     session.sendmail(sender_address, receiver_address, text)
