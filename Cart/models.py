@@ -76,8 +76,8 @@ class Message(models.Model):
     trans_id = models.CharField(max_length=300, default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     failure = models.BooleanField(default=True)
-    error = models.CharField(max_length=1000)
-    message_body = models.CharField(max_length=10000)
+    error = models.TextField()
+    message_body = models.TextField()
 
     def __str__(self):
         return self.order
