@@ -61,7 +61,10 @@ class CartView(CreateAPIView):
         serializer_class.is_valid(raise_exception=True)
         serializer_class.save()
 
-        send_mail(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
+        try:
+            send_mail_smtp(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
+        except:
+            send_mail_api(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
         response = {
             'success': True,
             'status_code': status.HTTP_200_OK,
