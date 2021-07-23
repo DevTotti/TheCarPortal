@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
 from Store.models import Merchandise
-from Middleware.mail_sender import send_mail
+from Middleware.mail_sender import send_mail_smtp, send_mail_api
 
 # Create your views here.
 from Store.models import Merchandise
