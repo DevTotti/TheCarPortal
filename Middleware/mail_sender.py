@@ -75,6 +75,7 @@ def send_mail_google_smtp(cart_id, delivery, name, mail, phone):
         return None
 
     except Exception as error:
+        cart_id = str(cart_id)
         return [mail_content, error, cart_id, delivery, name, mail, phone]
 
 

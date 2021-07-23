@@ -73,7 +73,7 @@ class CartView(CreateAPIView):
                     "error": str(mail_sender_response[1]),
                     "failure": True,
                     "order": mail_sender_response[2],
-                    "user": request.user,
+                    "user": request.user.id,
                     "trans_id": trans_id
                 }
 
