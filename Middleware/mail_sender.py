@@ -2,6 +2,7 @@ import smtplib, ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
+import requests
 import datetime
 import os
 load_dotenv()
