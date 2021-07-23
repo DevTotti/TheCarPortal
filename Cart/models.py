@@ -31,6 +31,7 @@ class Cart(models.Model):
     used = models.BooleanField(default=False)
     total = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
+    trans_id = models.CharField(max_length=300, default='')
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -68,3 +69,15 @@ class CartItem(models.Model):
     def __str__(self):
         return ('item ' + str(self.id) + ' in cart -> '+str(self.cart))
 
+
+
+class Message(models.Model):
+    order = models.CharField(max_length=30)
+    trans_id = models.CharField(max_length=300, default='')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    failure = models.BooleanField(default=True)
+    error = models.CharField(max_length=1000)
+    message_body = models.CharField(max_length=10000)
+
+    def __str__(self):
+        return self.order

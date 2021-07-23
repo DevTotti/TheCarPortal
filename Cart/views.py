@@ -10,8 +10,8 @@ from Middleware.mail_sender import send_mail_google_smtp, send_mail_gun_smtp
 
 # Create your views here.
 from Store.models import Merchandise
-from .models import Cart, CartItem
-from .serializers import CartSerializer
+from .models import Cart, CartItem, Message
+from .serializers import CartSerializer, MessageSerializer
 from user.models import User
 
 
@@ -55,16 +55,33 @@ class CartView(CreateAPIView):
         request.data['total'] = total_cart_price
         request.data['paid'] = True
         request.data['delivery'] = user_details.delivery
+        trans_id = request.data['trans_id']
         
         serializer_class = CartSerializer(cart_obj, data=request.data)
         
         serializer_class.is_valid(raise_exception=True)
         serializer_class.save()
 
-        # try:
-        send_mail_google_smtp(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
-        # except:
-        #     send_mail_gun_smtp(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
+        
+        mail_sender_response = send_mail_google_smtp(cart_obj, user_details.delivery, user_details.name, user_details.email, user_details.phone)
+        if not mail_sender_response:
+            pass
+        
+        else:
+            data = { 
+                    "message_body": mail_sender_response[0],
+                    "error": str(mail_sender_response[1]),
+                    "failure": True,
+                    "order": mail_sender_response[2],
+                    "user": request.user,
+                    "trans_id": trans_id
+                }
+
+            serializer_new = MessageSerializer(data=data)
+            serializer_new.is_valid(raise_exception=True)
+            serializer_new.save()
+
+
         response = {
             'success': True,
             'status_code': status.HTTP_200_OK,

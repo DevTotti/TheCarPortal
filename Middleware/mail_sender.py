@@ -65,13 +65,17 @@ def send_mail_google_smtp(cart_id, delivery, name, mail, phone):
     ssl_context = ssl.create_default_context()
     session = smtplib.SMTP_SSL('smtp.gmail.com', 465, context=ssl_context) #use gmail with port
     # session.starttls() #enable security
-    session.login(sender_address, sender_pass) #login with mail_id and password
-    text = message.as_string()
-    session.sendmail(sender_address, receiver_address, text)
-    session.quit()
-    print('Mail Sent by Google')
+    try:
+        session.login(sender_address, sender_pass) #login with mail_id and password
+        text = message.as_string()
+        session.sendmail(sender_address, receiver_address, text)
+        session.quit()
+        print('Mail Sent by Google')
 
-    return 
+        return None
+
+    except Exception as error:
+        return [mail_content, error, cart_id, delivery, name, mail, phone]
 
 
 def send_mail_gun_smtp(cart_id, delivery, name, mail, phone):

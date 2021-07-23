@@ -6,6 +6,7 @@ from user.serializers import UserRegistrationSerializer
 
 from .models import Cart
 from .models import CartItem
+from .models import Message
 
 class CartItemSerializer(serializers.ModelSerializer):
     merch = MerchandiseSerializer(read_only=True)
@@ -23,6 +24,13 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         total = Field(source='total')
         total_cart = Field(source='total_cart')
+        fields = '__all__'
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Message
         fields = '__all__'
 
 
