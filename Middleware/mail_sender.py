@@ -107,7 +107,7 @@ def send_mail_api(cart_id, delivery, name, mail, phone):
         thecarportalnet@gmail.com
     """.format(name=name, cart_id=cart_id, delivery=delivery, phone=phone, current_date=current_date, next_three_days=next_three_days)
 
-    return requests.post(
+    send = requests.post(
         domain,
         auth=("api", car_portal_mail_gun_api_key),
         data={
@@ -117,3 +117,5 @@ def send_mail_api(cart_id, delivery, name, mail, phone):
             "text": mail_content
             }
         )
+
+    print(send)
