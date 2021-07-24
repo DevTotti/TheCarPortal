@@ -55,7 +55,7 @@ class CartView(CreateAPIView):
         request.data['total'] = total_cart_price
         request.data['paid'] = True
         request.data['delivery'] = user_details.delivery
-        trans_id = request.data['trans_id']
+        trans_id = request.data.get('trans_id')
         
         serializer_class = CartSerializer(cart_obj, data=request.data)
         
@@ -74,7 +74,7 @@ class CartView(CreateAPIView):
                     "failure": True,
                     "order": mail_sender_response[2],
                     "user": request.user.id,
-                    "trans_id": trans_id
+                    "trans_id": trans_id if not None else ''
                 }
 
             serializer_new = MessageSerializer(data=data)
