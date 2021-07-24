@@ -73,7 +73,7 @@ class CartItem(models.Model):
 
 class Message(models.Model):
     order = models.CharField(max_length=30)
-    trans_id = models.CharField(max_length=300, default='')
+    trans_id = models.CharField(max_length=300, default='', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     failure = models.BooleanField(default=True)
     error = models.TextField()
