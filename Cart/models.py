@@ -31,7 +31,7 @@ class Cart(models.Model):
     used = models.BooleanField(default=False)
     total = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
-    trans_id = models.CharField(max_length=300, default='')
+    trans_id = models.CharField(max_length=300, default='', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
