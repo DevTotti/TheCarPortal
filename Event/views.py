@@ -72,7 +72,7 @@ class EventRetrieveView(RetrieveAPIView):
     def get(self, request, **args):
         event_objects =  Event.objects.get(id=args['event_id'])
         images = EventImg.objects.filter(event=event_objects)
-        vids = EventVid.objects.filter(event=event)
+        vids = EventVid.objects.filter(event=event_objects)
         data = {
             "id": event_objects.id,
             "Title": event_objects.title,
