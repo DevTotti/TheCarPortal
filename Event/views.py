@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import EventSerializer
-from .models import Event, EventImg, EventVid
+from .models import Event, EventImg
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -39,7 +39,6 @@ class EventsRetrieveView(RetrieveAPIView):
         message = []
         for event in event_objects:
             images = EventImg.objects.filter(event=event)
-            vids = EventVid.objects.filter(event=event)
             data = {
                 "id": event.id,
                 "Title": event.title,
@@ -49,7 +48,7 @@ class EventsRetrieveView(RetrieveAPIView):
                 "Date": event.date,
                 "Time": event.time,
                 "Image": [img_url+str(img.image) for img in images],
-                "Video": [str(vid.video) for vid in vids],
+                "Video": event.youtube,
                 "Venue": event.venue
             }
 
@@ -72,7 +71,6 @@ class EventRetrieveView(RetrieveAPIView):
     def get(self, request, **args):
         event_objects =  Event.objects.get(id=args['event_id'])
         images = EventImg.objects.filter(event=event_objects)
-        vids = EventVid.objects.filter(event=event_objects)
         data = {
             "id": event_objects.id,
             "Title": event_objects.title,
@@ -82,7 +80,7 @@ class EventRetrieveView(RetrieveAPIView):
             "Date": event_objects.date,
             "Time": event_objects.time,
             "Image": [img_url+str(img.image) for img in images],
-            "Video": [str(vid) for vid in vids],
+            "Video": event_objects.youtube,
             "Venue": event_objects.venue
         }
     

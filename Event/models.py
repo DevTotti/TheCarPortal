@@ -18,6 +18,7 @@ class Event(models.Model):
     description = models.CharField(max_length=300)
     full_details = models.TextField(blank=True)
     venue = models.CharField(max_length=255, blank=False, null=False, default='')
+    youtube = models.URLField()
 
 
     def __str__(self):
@@ -32,13 +33,5 @@ class EventImg(models.Model):
     def __str__(self):
         return self.event.title
 
-
-class EventVid(models.Model):
-    event = models.ForeignKey(Event, default=None, on_delete=models.CASCADE)
-    video = models.URLField()
-
-
-    def __str__(self):
-        return self.event.title
 
 
