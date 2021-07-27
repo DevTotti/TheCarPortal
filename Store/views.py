@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
-url = "https://res.cloudinary.com/the-car-portal/image/upload/q_auto:low/"
+url = "https://res.cloudinary.com/the-car-portal/image/upload/f_auto/q_auto:low/"
 
 
 class MerchandiseView(RetrieveAPIView):
