@@ -78,3 +78,19 @@ class CarSaleImage(models.Model):
         return self.product.name
 
 ########################################################################################
+
+
+class Inspection(models.Model):
+    email = models.CharField(max_length=300, default='', null=True, blank=True)
+    phone = models.CharField(max_length=30, default='', null=True, blank=True)
+    name = models.CharField(max_length=50, default='', null=True, blank=True)
+    responded = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.phone
+
+
+class Lead(models.Model):
+    person = models.ForeignKey(Inspection, on_delete=models.CASCADE, default=None)
+    prospect = models.BooleanField(default=False)

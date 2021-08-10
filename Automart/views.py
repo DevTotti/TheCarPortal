@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import AutoMartSerializer
+from .serializers import AutoMartSerializer, InspectionSerializer
 from .models import CarSale, CarSaleImage
 from rest_framework import status
 from rest_framework.response import Response
@@ -54,3 +54,33 @@ class CarSalesView(RetrieveAPIView):
 
         status_ = status.HTTP_200_OK
         return Response(response, status_)
+
+
+class InspectionView(CreateAPIView):
+    queryset = CarSale.objects.all()
+    permission_classes = (AllowAny, )
+
+    def post(self, request, **args):
+        if request.data:
+            serializer_class = InspectionSerializer(data=request.data)
+            serializer_class.is_valid(raise_exception=True)
+            serializer_class.save()
+            response = {
+                'success': True,
+                'status_code': status.HTTP_200_OK,
+                'message': 'Inspection created'
+            }
+
+            status_ = status.HTTP_200_OK
+
+        else:
+            response = {
+                'success': False,
+                'status_code': status.HTTP_400_BAD_REQUEST,
+                'message': 'Error creating inspection'
+            }
+
+            status_ = status.HTTP_400_BAD_REQUEST
+
+        
+        return Response(response, status=status_)
