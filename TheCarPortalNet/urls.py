@@ -23,6 +23,7 @@ urlpatterns = [
     path('store/', include('Store.urls')),
     path('cart/', include('Cart.urls')),
     path('sale/', include('Enquiry.urls')),
+    path('automart/', include('Automart.urls'))
 ]
 
 admin.site.site_header = 'The Car Portal Admin Dashboard'

@@ -1,0 +1,56 @@
+from django.shortcuts import render
+from .serializers import AutoMartSerializer
+from .models import CarSale, CarSaleImage
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
+# Create your views here.
+img_url = "https://res.cloudinary.com/the-car-portal/image/upload/"
+vid_url = "https://res.cloudinary.com/the-car-portal/video/upload/"
+
+class CarSalesView(RetrieveAPIView):
+    queryset = CarSale.objects.all()
+    permission_classes = (AllowAny, )
+
+    def get(self, request, **args):
+        carsales_objects = CarSale.objects.all()
+        message = []
+        for car in carsales_objects:
+            images = CarSaleImage.objects.filter(product=car)
+            data = {
+                "id": car.id,
+                "name": car.name,
+                "model": car.model,
+                "exterior_color": car.exterior_color,
+                "interior_color": car.interior_color,
+                "description": car.description,
+                "price": car.price,
+                "style": car.type_of_car,
+                "engine_type": car.engine_type,
+                "drive_train": car.drive_train,
+                "fuel": car.fuel_type,
+                "faults": car.faults,
+                "make": car.make,
+                "man_year": car.man_year,
+                "registered": car.registered,
+                "distance": car.distance_covered,
+                "transmission": car.transmission,
+                "usage": car.usage_type,
+                "location": car.location,
+                "images": [img_url+str(img.image) for img in images],
+                "video": vid_url+str(car.video)
+            }
+
+            message.append(data)
+
+
+        
+        response = {
+            'success': True,
+            'status_code': status.HTTP_200_OK,
+            'message': message
+        }
+
+        status_ = status.HTTP_200_OK
+        return Response(response, status_)

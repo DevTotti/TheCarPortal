@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'Event',
     'Store',
     'user',
-    'affiliate',
+    'Automart',
     'corsheaders',
     'Cart',
     'Order',
