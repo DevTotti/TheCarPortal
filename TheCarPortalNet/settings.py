@@ -71,6 +71,10 @@ MIDDLEWARE = [
     
 ]
 
+CSRF_TRUSTED_ORIGINS = ['thecarportal.net']
+
+CORS_REPLACE_HTTPS_REFERER = True
+
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
@@ -82,7 +86,8 @@ CORS_ALLOW_METHODS = [
     'POST',
     'PUT',
 ]
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'https://www.thecarportal.net/', 'http://www.thecarportal.net/'],
+
+CORS_ORIGIN_WHITELIST = ('http://localhost:3000', 'https://www.thecarportal.net/', 'http://www.thecarportal.net/')
 
 
 CORS_ALLOW_HEADERS = [
