@@ -87,7 +87,7 @@ CORS_ALLOW_METHODS = [
     'PUT',
 ]
 
-CORS_ORIGIN_WHITELIST = ('http://localhost:3000', 'https://www.thecarportal.net/', 'http://www.thecarportal.net/')
+CORS_ORIGIN_WHITELIST = ('http://localhost:3000', 'https://www.thecarportal.net', 'https://thecarportal.net')
 
 
 CORS_ALLOW_HEADERS = [

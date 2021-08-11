@@ -9,8 +9,8 @@ class Event(models.Model):
     title = models.CharField(max_length=255)
 
     status_choices = [
-        ('P', 'Past'),
-        ('U', 'Upcoming'),
+        ('Past', 'Past'),
+        ('Upcoming', 'Upcoming'),
     ]
     status = models.CharField(max_length=10, default='U', blank=True, choices=status_choices)
     date = models.DateField(blank=False, null=False)
