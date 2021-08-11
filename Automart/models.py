@@ -4,7 +4,6 @@ from django.utils import timezone
 from cloudinary.models import CloudinaryField
 
 
-
 ####################################################################
 class CarSale(models.Model):
     name = models.CharField(max_length=200, blank=False, null=False)
