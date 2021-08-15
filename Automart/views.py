@@ -56,6 +56,49 @@ class CarSalesView(RetrieveAPIView):
         return Response(response, status_)
 
 
+class OneCarSaleView(RetrieveAPIView):
+    queryset = CarSale.objects.all()
+    permission_classes = (AllowAny, )
+
+    def get(self, request, **args):
+        car = CarSale.objects.get(id=args['car_id'])
+        message = []
+        
+        images = CarSaleImage.objects.filter(product=car)
+        data = {
+            "id": car.id,
+            "name": car.name,
+            "model": car.model,
+            "exterior_color": car.exterior_color,
+            "interior_color": car.interior_color,
+            "description": car.description,
+            "price": car.price,
+            "style": car.type_of_car,
+            "engine_type": car.engine_type,
+            "drive_train": car.drive_train,
+            "fuel": car.fuel_type,
+            "faults": car.faults,
+            "make": car.make,
+            "man_year": car.man_year,
+            "registered": car.registered,
+            "distance": car.distance_covered,
+            "transmission": car.transmission,
+            "usage": car.usage_type,
+            "location": car.location,
+            "images": [img_url+str(img.image) for img in images],
+            "video": vid_url+str(car.video)
+        }
+        
+        response = {
+            'success': True,
+            'status_code': status.HTTP_200_OK,
+            'message': data
+        }
+
+        status_ = status.HTTP_200_OK
+        return Response(response, status_)
+
+
 class InspectionView(CreateAPIView):
     queryset = CarSale.objects.all()
     permission_classes = (AllowAny, )
