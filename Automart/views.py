@@ -116,7 +116,6 @@ class InspectionView(CreateAPIView):
 
             status_ = status.HTTP_200_OK
 
-
         else:
             response = {
                 'success': False,
