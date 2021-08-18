@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import AutoMartSerializer, InspectionSerializer
-from .models import CarSale, CarSaleImage
+from .models import CarSale, CarSaleImage, Inspection
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -100,7 +100,7 @@ class OneCarSaleView(RetrieveAPIView):
 
 
 class InspectionView(CreateAPIView):
-    queryset = CarSale.objects.all()
+    queryset = Inspection.objects.all()
     permission_classes = (AllowAny, )
 
     def post(self, request, **args):
