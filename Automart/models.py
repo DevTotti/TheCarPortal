@@ -80,7 +80,7 @@ class CarSaleImage(models.Model):
 
 
 class Inspection(models.Model):
-    product = models.ForeignKey(CarSale, default=None, related_name='images', on_delete=models.CASCADE)
+    product = models.ForeignKey(CarSale, default=None, related_name='inspection', on_delete=models.CASCADE)
     email = models.CharField(max_length=300, default='', null=True, blank=True)
     phone = models.CharField(max_length=30, default='', null=True, blank=True)
     name = models.CharField(max_length=50, default='', null=True, blank=True)
