@@ -66,6 +66,7 @@ class OneCarSaleView(RetrieveAPIView):
         message = []
         
         images = CarSaleImage.objects.filter(product=car)
+        video = car.video if car.video else ''
         data = {
             "id": car.id,
             "name": car.name,
@@ -87,7 +88,7 @@ class OneCarSaleView(RetrieveAPIView):
             "usage": car.usage_type,
             "location": car.location,
             "images": [img_url+str(img.image)+'.jpg' for img in images],
-            "video": vid_url+str(car.video)
+            "video": vid_url+str(video)
         }
         
         response = {
