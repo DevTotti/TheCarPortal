@@ -38,7 +38,7 @@ class CarSalesView(RetrieveAPIView):
                 "transmission": car.transmission,
                 "usage": car.usage_type,
                 "location": car.location,
-                "images": [img_url+str(img.image) for img in images],
+                "images": [img_url+str(img.image)+'.jpg' for img in images],
                 "video": vid_url+str(car.video)
             }
 
@@ -85,7 +85,7 @@ class OneCarSaleView(RetrieveAPIView):
             "transmission": car.transmission,
             "usage": car.usage_type,
             "location": car.location,
-            "images": [img_url+str(img.image) for img in images],
+            "images": [img_url+str(img.image)+'.jpg' for img in images],
             "video": vid_url+str(car.video)
         }
         
