@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 # Create your views here.
-img_url = "https://res.cloudinary.com/the-car-portal/image/upload/"
+img_url = "https://res.cloudinary.com/the-car-portal/image/upload/c_scale,h_800,w_1000/"
 vid_url = "https://res.cloudinary.com/the-car-portal/video/upload/"
 
 class CarSalesView(RetrieveAPIView):
