@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'Order',
     'Enquiry',
     'cloudinary',
+    'affiliate',
     
 ]
 

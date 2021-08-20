@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-# Create your views here.
+
+def get_carportal(request):
+
+    return redirect('https://thecarportal.net')
